@@ -1,0 +1,25 @@
+{
+  "name": "2222",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@mrnima/instagram-downloader": "^1.0.0",
+    "axios": "^1.16.1",
+    "btch-downloader": "^6.0.32",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "instagram-url-direct": "^2.0.7",
+    "snapinsta": "^1.0.5",
+    "sqlite3": "^6.0.1"
+  }
+}

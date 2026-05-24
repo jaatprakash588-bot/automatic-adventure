@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InstaSnap - Ultimate Instagram Downloader</title>
+  <meta name="description" content="Download Instagram Reels, Videos, and Photos instantly using our fast, database-backed online utility. Paste your link and start saving content.">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Styling -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <div class="logo-icon-wrapper">
+          <i class="fa-brands fa-instagram logo-icon"></i>
+        </div>
+        <span>Insta<span>Snap</span></span>
+      </div>
+      <div class="server-status">
+        <span class="status-dot"></span>
+        <span class="status-text">Database Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-container">
+      <h1>Save Instagram Reels, Videos & Photos</h1>
+      <p class="hero-subtitle">Paste your Instagram link below to extract high-quality media. Download directly to your device bypass-free.</p>
+    </div>
+  </section>
+
+  <!-- Main Work Area -->
+  <main class="main-content">
+    <!-- Input Section -->
+    <section class="downloader-section">
+      <div class="downloader-card glass">
+        <div class="downloader-input-wrapper">
+          <i class="fa-solid fa-link input-icon"></i>
+          <input type="text" id="instagram-url" placeholder="Paste Instagram link here (e.g. https://www.instagram.com/reel/...)">
+          <button id="paste-btn" class="secondary-btn" title="Paste from clipboard">
+            <i class="fa-regular fa-clipboard"></i> <span>Paste</span>
+          </button>
+        </div>
+        <button id="download-btn" class="primary-btn">
+          <span>Extract Media</span> <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        
+        <!-- Loading Spinner -->
+        <div id="loader" class="loader-wrapper hidden">
+          <div class="spinner"></div>
+          <p id="loader-status">Fetching media from Instagram servers...</p>
+        </div>
+
+        <!-- Error Notification -->
+        <div id="error-alert" class="alert error hidden">
+          <i class="fa-solid fa-circle-exclamation alert-icon"></i>
+          <div class="alert-content">
+            <span class="alert-title">Extraction Error</span>
+            <span id="error-message" class="alert-text">Failed to fetch the URL. Please verify the link format.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Extraction Result Section -->
+    <section id="result-section" class="result-section hidden">
+      <div class="result-container glass">
+        <div class="result-header">
+          <span class="badge" id="source-badge">Live Content</span>
+          <span class="badge media-type-badge" id="type-badge">Video</span>
+        </div>
+        <div class="result-body">
+          <div class="media-preview-container" id="media-preview-box">
+            <!-- Dynamic Content (Video or Image) goes here -->
+          </div>
+          <div class="media-info">
+            <h3 class="caption-title">Post Caption</h3>
+            <p class="media-caption" id="media-caption-text">No caption available for this post.</p>
+            <div class="media-meta">
+              <div class="meta-item">
+                <i class="fa-regular fa-clock"></i>
+                <span id="media-timestamp">Just Now</span>
+              </div>
+              <div class="meta-item">
+                <i class="fa-solid fa-database"></i>
+                <span>Saved to database</span>
+              </div>
+              <div class="meta-item">
+                <i class="fa-solid fa-arrow-down-to-bracket"></i>
+                <span id="media-download-count">0 downloads</span>
+              </div>
+            </div>
+            <div class="action-buttons">
+              <a href="#" id="direct-download-link" class="primary-btn download-action" download>
+                <i class="fa-solid fa-download"></i> Download to Device
+              </a>
+              <button id="copy-link-btn" class="secondary-btn">
+                <i class="fa-regular fa-copy"></i> Copy Direct Link
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Dashboard Section -->
+    <section class="stats-section">
+      <div class="stats-container">
+        <div class="stat-card glass">
+          <div class="stat-icon-wrapper blue">
+            <i class="fa-solid fa-cloud-arrow-down"></i>
+          </div>
+          <div class="stat-info">
+            <h3 id="stat-total">0</h3>
+            <p>Total Extractions</p>
+          </div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-icon-wrapper purple">
+            <i class="fa-solid fa-clapperboard"></i>
+          </div>
+          <div class="stat-info">
+            <h3 id="stat-videos">0</h3>
+            <p>Reels & Videos Saved</p>
+          </div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-icon-wrapper pink">
+            <i class="fa-regular fa-image"></i>
+          </div>
+          <div class="stat-info">
+            <h3 id="stat-images">0</h3>
+            <p>Photos Saved</p>
+          </div>
+        </div>
+        <div class="stat-card glass">
+          <div class="stat-icon-wrapper green">
+            <i class="fa-solid fa-circle-down"></i>
+          </div>
+          <div class="stat-info">
+            <h3 id="stat-downloads">0</h3>
+            <p>Total Device Downloads</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Database History Section -->
+    <section class="history-section">
+      <div class="history-header">
+        <div class="history-title">
+          <h2><i class="fa-solid fa-clock-rotate-left"></i> SQLite Downloads Database</h2>
+          <p>Browsing locally logged extractions</p>
+        </div>
+        <!-- History Controls -->
+        <div class="history-controls">
+          <div class="search-box glass">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="history-search" placeholder="Search saved posts...">
+          </div>
+          <div class="filter-group glass">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="video">Videos</button>
+            <button class="filter-btn" data-filter="image">Images</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- History Grid -->
+      <div id="history-grid" class="history-grid">
+        <!-- History cards dynamically populated -->
+      </div>
+
+      <!-- History Empty State -->
+      <div id="history-empty" class="history-empty glass hidden">
+        <i class="fa-regular fa-folder-open empty-icon"></i>
+        <h3>No Records Found</h3>
+        <p>No downloads logged matching the current search parameters. Try pasting a link first!</p>
+      </div>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <section class="faq-section">
+      <div class="faq-container">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item glass">
+          <button class="faq-question">
+            <span>How do I download Instagram Reels and Videos?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Copy the URL of the Reel or post from the Instagram app or website, paste it in the link input field above, and click "Extract Media". Once parsed, click "Download to Device" to fetch the high-quality file.</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass">
+          <button class="faq-question">
+            <span>Why is there a "Demo Content" badge on some files?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Instagram aggressively blocks automated requests from hosting servers. When their security filters prevent direct scraping of a URL, our backend automatically activates a "Demo Simulation Mode". This showcases the full database logging, extraction flow, and proxy download pipelines using premium stock files instead of crashing.</p>
+          </div>
+        </div>
+
+        <div class="faq-item glass">
+          <button class="faq-question">
+            <span>Does this site save my data?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Yes. Every successful extraction logs the original link, media type, and caption into our local SQLite database. You can search, browse, re-download, or delete records directly from the database history table at any time.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2026 InstaSnap. Powered by Express, SQLite, and Vanilla CSS.</p>
+      <div class="footer-links">
+        <a href="#"><i class="fa-brands fa-github"></i> Source</a>
+        <a href="#"><i class="fa-solid fa-database"></i> SQLite Logs</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>
